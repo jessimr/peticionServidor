@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        textField.returnKeyType = UIReturnKeyType.search
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,33 +44,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }else{ //Si no hay datos (fallo en la conexión a Internet)
             //Mostrar mensaje de error
             textView.textColor = UIColor.red
-            textView.text = "Error: No Internet connection"
+            textView.text = "Error: No hay conexión a Internet"
             
         }
         
     }
     
-    @IBAction func search(_ sender: Any) {
-        let texto = textField.text
-        sincrono(texto: texto!)
-        
-    }
-    
-    @IBAction func clear(_ sender: Any) {
-        textField.text = nil
-        textView.text = nil
-    }
     
     //Esconder teclado cuando se pulsa fuera (no funciona con el scroll)
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    //Esconder teclado cuando se da a intro
+    //Acciones al pulsar buscar (Esconder teclado cuando se da a intro y buscar libro)
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         self.view.endEditing(true)
-        
+        let texto = textField.text
+        sincrono(texto: texto!)
         return true
         
     }
